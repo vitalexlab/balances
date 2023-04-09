@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "balances"
+version = "0.1.0"
+description = ""
+authors = ["varabyeu <varabyeu.v@yandex.by>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.0"
+sqlalchemy = "^2.0.9"
+uvicorn = "^0.21.1"
+pre-commit = "^3.2.2"
+envparse = "^0.2.0"
+psycopg2 = "^2.9.6"
+alembic = "^1.10.3"
+asyncpg = "^0.27.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
