@@ -36,28 +36,6 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
 
-class UserDAL:
-    """Data access layer for operating user info"""
-
-    def __int__(self, db_session: AsyncSession):
-        self.db_session = db_session
-
-    async def create_user(
-            self,
-            name: str,
-            surname: str,
-            email: str,
-    ) -> User:
-        new_user = User(
-            name=name,
-            surname=surname,
-            email=email
-        )
-        self.db_session.add(new_user)
-        await self.db_session.flush()
-        return new_user
-
-
 LETTER_MATCH_PATTERN = re.compile(r"^[а-яА-яa-zA-Z\-]+$")
 
 
@@ -100,9 +78,30 @@ class ShowUser(TunedModel):
     is_active: bool
 
 
-app = FastAPI("Vitali")
+app = FastAPI()
 
 user_router = APIRouter()
+
+
+class UserDAL:
+
+    def __init__(self, db_session: AsyncSession):
+        self.db_session = db_session
+
+    async def create_user(
+            self,
+            name: str,
+            surname: str,
+            email: str,
+    ) -> User:
+        new_user = User(
+            name=name,
+            surname=surname,
+            email=email
+        )
+        self.db_session.add(new_user)
+        await self.db_session.flush()
+        return new_user
 
 
 async def _create_new_user(body: UserCreate) -> ShowUser:
